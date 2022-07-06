@@ -1,7 +1,7 @@
 # 2022-07-05
 # pytorch study 1
 # TENSOR
-from typing import List
+from typing import List, Tuple
 
 import torch
 import numpy as np
@@ -44,5 +44,49 @@ x_np: Tensor = torch.from_numpy(np_array)
 x_ones: Tensor = torch.ones_like(x_data)  # x_data 의 속성을 유지
 print(f"Ones Tensor: \n {x_ones} \n")
 
-x_rand: Tensor = torch.rand_like(x_data, dtype=torch.float) # 속성만 덮어쓰고 인자 타입도 바꿀 수 있음
+x_rand: Tensor = torch.rand_like(x_data, dtype=torch.float)  # 속성만 덮어쓰고 인자 타입도 바꿀 수 있음
 print(f"Random Tensor: \n {x_rand} \n")
+
+"""
+무작위(random) 또는 상수(constant) 값을 사용하기:
+shape은 텐서의 차원(dimension)을 나타내는 튜플(tuple)로, 아래 함수들에서는 출력 텐서의 차원을 결정합니다.
+"""
+shape: Tuple[int, int] = (2, 3,)  # 띠용 이렇게 해도 에러가 안남
+shape1: Tuple[int, int] = (2, 3)  # 무슨 차이인지 찍어봤는데 그냥 똑같음
+
+rand_tensor: Tensor = torch.rand(shape)
+ones_tensor: Tensor = torch.ones(shape)
+zeros_tensor: Tensor = torch.zeros(shape)
+rand_tensor2: Tensor = torch.rand(shape)
+ones_tensor2: Tensor = torch.ones(shape)
+zeros_tensor2: Tensor = torch.zeros(shape)
+
+print(f"Random Tensor:\n {rand_tensor} \n")
+print(f"Random Tensor2:\n {rand_tensor2} \n")
+print(f"Ones Tensor: \n {ones_tensor} \n")
+print(f"Ones Tensor2: \n {ones_tensor2} \n")
+print(f"zeros_tensor: \n {zeros_tensor} \n")
+print(f"zeros_tensor2: \n {zeros_tensor2} \n")
+
+tensor = torch.rand(3, 4)
+
+print(f"Shape of Tensor: {tensor.shape}\n")
+print(f"Datatype of Tensor{tensor.dtype}\n")
+print(f"Device tensor is stored on {tensor.device}\n")
+
+"""
+텐서 연산(Operation)
+전치(transposing), 인덱싱(indexing), 슬라이싱(slicing), 수학 계산, 선형 대수, 임의 샘플링(random sampling) 등, 100가지 이상의 텐서 연산들을 *여기 에서 확인할 수 있습니다.
+*여기 == https://pytorch.org/docs/stable/torch.html
+각 연산들은 (일반적으로 CPU보다 빠른) GPU에서 실행할 수 있습니다. Colab을 사용한다면, Edit > Notebook Settings 에서 GPU를 할당할 수 있습니다.
+기본적으로 텐서는 CPU에 생성됩니다. .to 메소드를 사용하면 (GPU의 가용성(availability)을 확인한 뒤) GPU로 텐서를 명시적으로 이동할 수 있습니다.
+장치들 간에 큰 텐서들을 복사하는 것은 시간과 메모리 측면에서 비용이 많이든다는 것을 기억하세요!
+"""
+if torch.cuda.is_available():
+    tensor = tensor.to("cuda")  # tensor gpu에서 연산하도록 이동
+print(torch.cuda.is_available())
+
+"""
+목록에서 몇몇 연산들을 시도해보세요. NumPy API에 익숙하다면 Tensor API를 사용하는 것은 식은 죽 먹기라는 것을 알게 되실 겁니다.
+NumPy식의 표준 인덱싱과 슬라이싱:
+"""
