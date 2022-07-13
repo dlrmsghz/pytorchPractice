@@ -96,3 +96,5 @@ print(f"First column: {tensor[:, 0]}")
 print(f"Last column: {tensor[..., -1]}")
 tensor[:,1] = 0
 print(tensor)
+
+print("git test")
