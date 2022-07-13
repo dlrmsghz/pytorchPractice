@@ -90,11 +90,9 @@ print(f"GPU available : {torch.cuda.is_available()}\nGPU device name : {torch.cu
 목록에서 몇몇 연산들을 시도해보세요. NumPy API에 익숙하다면 Tensor API를 사용하는 것은 식은 죽 먹기라는 것을 알게 되실 겁니다.
 NumPy식의 표준 인덱싱과 슬라이싱:
 """
-
 tensor = torch.ones(4, 4)
 print(f"First row: {tensor[0]}")
 print(f"First column: {tensor[:, 0]}")
 print(f"Last column: {tensor[..., -1]}")
 tensor[:,1] = 0
 print(tensor)
-
