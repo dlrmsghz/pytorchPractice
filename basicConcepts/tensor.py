@@ -84,9 +84,17 @@ print(f"Device tensor is stored on {tensor.device}\n")
 """
 if torch.cuda.is_available():
     tensor = tensor.to("cuda")  # tensor gpu에서 연산하도록 이동
-print(torch.cuda.is_available())
+print(f"GPU available : {torch.cuda.is_available()}\nGPU device name : {torch.cuda.get_device_name()}\\n\n")
 
 """
 목록에서 몇몇 연산들을 시도해보세요. NumPy API에 익숙하다면 Tensor API를 사용하는 것은 식은 죽 먹기라는 것을 알게 되실 겁니다.
 NumPy식의 표준 인덱싱과 슬라이싱:
 """
+
+tensor = torch.ones(4, 4)
+print(f"First row: {tensor[0]}")
+print(f"First column: {tensor[:, 0]}")
+print(f"Last column: {tensor[..., -1]}")
+tensor[:,1] = 0
+print(tensor)
+
