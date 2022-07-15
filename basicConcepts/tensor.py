@@ -94,8 +94,51 @@ tensor = torch.ones(4, 4)
 print(f"First row: {tensor[0]}")
 print(f"First column: {tensor[:, 0]}")
 print(f"Last column: {tensor[..., -1]}")
-tensor[:,1] = 0
-print(tensor)
+tensor[:, 1] = 0
+print(f"tensor[:,1] : {tensor}")
 
-print("git test")
-print("git test")
+tensor[:, -1] = 0
+print(f"tensor[:,-1] : {tensor}")
+
+tensor[1, :] = 2
+print(f"tensor[0:] : {tensor}")
+
+tensor[:, -1] = 3
+print(f"tensor[0:] : {tensor}")
+# print(tensor)
+
+"""
+텐서 합치기 torch.cat 을 사용하여 주어진 차원에 따라 일련의 텐서를 연결할 수 있습니다. torch.cat 과 미묘하게 다른 또 다른 텐서 결합 연산인 torch.stack 도 참고해보세요.
+"""
+
+t1 = torch.cat([tensor, tensor, tensor], dim=0)  # 세로로 이어 붙이기
+print(f"dim=0 : {t1}")
+
+t1 = torch.cat([tensor, tensor, tensor], dim=1)  # 가로로 이어 붙이기
+print(f"dim=1 : {t1}")
+
+try:
+    t1 = torch.cat([tensor, tensor, tensor], dim=2)  # 삼차원으로 이어 붙이기 ㅡㅡ ?
+    print(f"dim=2 : {t1}")
+
+except:
+    print("error")
+
+# 두 텐서 간의 행렬 곱(matrix multiplication)을 계산합니다. y1, y2, y3은 모두 같은 값을 갖습니다.
+print("---------------------------------------")
+print(f" orgin tensor : {tensor}")
+y1 = tensor @ tensor.T
+y2 = tensor.matmul(tensor.T)
+
+y3 = torch.rand_like(y1)
+print(f" before matmul - y3 : {y3}")
+torch.matmul(tensor, tensor.T, out=y3)
+print(f"y1 : {y1}\n\ny2 : {y2}\n\ny3 : {y3}\n\n")
+
+# 요소별 곱(element-wise product)을 계산합니다. z1, z2, z3는 모두 같은 값을 갖습니다.
+z1 = tensor * tensor
+z2 = tensor.mul(tensor)
+
+z3 = torch.rand_like(tensor)
+torch.mul(tensor, tensor, out=z3)
+print(f"z1 : {z1}\n\nz2 : {z2}\n\nz3 : {z3}\n\n")
